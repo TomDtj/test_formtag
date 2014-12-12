@@ -37,6 +37,22 @@
     <%= f.file_field :picturepath%>
   </div>
   <div class="field">
+    Addresses:
+    <ul>
+      <%=f.fields_for :addresses do |af|%>
+        <li>
+          <%=af.check_box :_destroy%>
+          <%=af.label :city%>
+          <%=af.text_field :city%>
+          <%=af.label :street%>
+          <%=af.text_field :street%>
+          <%=af.label :telphone%>
+          <%=af.text_field :telphone%>
+        </li>
+        <% end %>
+    </ul>
+  </div>
+  <div class="field">
     <%= f.label :enable %><br>
     <%= f.check_box :enable %>
   </div>

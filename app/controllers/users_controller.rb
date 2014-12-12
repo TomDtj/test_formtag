@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    3.times{@user.addresses.build}
   end
 
   # GET /users/1/edit
@@ -79,6 +80,9 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :psw, :sex, :email, :note, :enable, :lastlogin,:picturepath,:picture)
+      params.require(:user).permit(:name, :psw,
+      :sex, :email, :note, :enable, :lastlogin,
+      :picturepath,:picture,addresses_attributes:
+       [:id,:city,:street,:telphone,:_destroy])
     end
 end
