@@ -25,8 +25,8 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
+      @user.picture = upload
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
@@ -35,7 +35,17 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+
   end
+
+def upload
+  uploaded_io = params[:user][:picturepath]
+   return uploaded_io.original_filename+" has uploaded!"
+  # File.open(Rails.root.join('public','uploads',
+  # uploaded_io.original_filename),'wb') do |file|
+  #   file.write(uploaded_io.read)
+  # end
+end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
@@ -69,6 +79,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :psw, :sex, :email, :note, :enable, :lastlogin)
+      params.require(:user).permit(:name, :psw, :sex, :email, :note, :enable, :lastlogin,:picturepath,:picture)
     end
 end
